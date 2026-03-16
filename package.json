@@ -4,7 +4,10 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "render-pages": "node scripts/render-pages.mjs",
+    "predev": "npm run render-pages",
     "dev": "vite",
+    "prebuild": "npm run render-pages",
     "build": "vite build",
     "preview": "vite preview"
   },
