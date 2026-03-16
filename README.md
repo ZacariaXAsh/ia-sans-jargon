@@ -1,12 +1,13 @@
 # IA, sans jargon
 
-Landing page Vite statique pour tester la demande autour d’un projet grand public qui aide à comprendre et utiliser l’IA sans jargon.
+Landing page Vite pour tester la demande autour d’un projet grand public qui aide à comprendre et utiliser l’IA sans jargon.
 
 ## Stack
 
 - Vite
 - HTML/CSS/JS statiques
-- Déploiement Vercel via `dist/`
+- Vercel pour l’hébergement du frontend
+- Vercel Function (`api/waitlist.js`) pour envoyer les emails vers Brevo côté serveur
 
 ## Démarrer en local
 
@@ -15,35 +16,19 @@ npm install
 npm run dev
 ```
 
-## Build de production
+## Variables d’environnement
 
-```bash
-npm run build
-npm run preview
-```
-
-## Déploiement Vercel
-
-Le projet est prêt pour un déploiement statique sur Vercel avec `vercel.json`.
-
-```bash
-npm run build
-vercel --prod
-```
-
-> Si le CLI Vercel n’est pas installé ou authentifié, il suffit d’importer le repo GitHub dans Vercel, ou d’installer le CLI puis de se connecter.
-
-## Intégration email / waitlist
+### Frontend (Vite)
 
 Le formulaire lit `VITE_WAITLIST_ENDPOINT` depuis l’environnement Vite.
 
-Exemple :
+En production sur Vercel, la valeur la plus simple est :
 
 ```bash
-VITE_WAITLIST_ENDPOINT=https://example.com/api/waitlist
+VITE_WAITLIST_ENDPOINT=/api/waitlist
 ```
 
-Le frontend envoie un `POST` JSON avec cette structure :
+Le frontend envoie un `POST` JSON avec cette structure :
 
 ```json
 {
@@ -53,18 +38,83 @@ Le frontend envoie un `POST` JSON avec cette structure :
 }
 ```
 
-### Comportement actuel
+### Backend (Vercel Function)
 
-- **Si `VITE_WAITLIST_ENDPOINT` est défini** : le formulaire envoie les emails en mode live.
-- **Si `VITE_WAITLIST_ENDPOINT` est vide** : le formulaire fonctionne en mode démo et enregistre localement l’email dans `localStorage` sous la clé `iaSansJargonWaitlistDemo`.
+Configurer aussi ces variables d’environnement sur Vercel :
 
-## Recommandation email
+```bash
+BREVO_API_KEY=your_brevo_api_key
+BREVO_LIST_ID=123
+```
 
-Pour aller vite ensuite, le meilleur choix pratique est **Brevo** :
+## Endpoint waitlist
 
-- très rapide à brancher
-- bon fit pour un produit francophone
-- API simple + formulaires/listes/automations
-- Vercel-friendly si on veut interposer un endpoint plus tard
+Le endpoint `api/waitlist.js` :
 
-Alternative si priorité absolue au confort développeur : **Loops**.
+- accepte uniquement `POST`
+- valide l’email côté serveur
+- ajoute ou met à jour le contact dans Brevo avec `updateEnabled: true`
+- utilise seulement `BREVO_API_KEY` et `BREVO_LIST_ID` côté serveur
+- retourne des réponses JSON propres (`{ ok: true }` en succès)
+
+Le body envoyé à Brevo contient au minimum :
+
+```json
+{
+  "email": "person@example.com",
+  "listIds": [123],
+  "updateEnabled": true
+}
+```
+
+## Build de production
+
+```bash
+npm run build
+npm run preview
+```
+
+## Test local rapide
+
+### Frontend seul
+
+Sans `VITE_WAITLIST_ENDPOINT`, le formulaire reste en mode démo et enregistre les emails dans `localStorage` sous la clé `iaSansJargonWaitlistDemo`.
+
+### Test end-to-end du vrai endpoint
+
+Le plus simple est d’utiliser Vercel en local pour servir à la fois le frontend et `api/waitlist.js` avec les mêmes variables d’environnement :
+
+```bash
+npm run build
+vercel dev
+```
+
+Puis tester l’endpoint :
+
+```bash
+curl -X POST http://localhost:3000/api/waitlist \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"test@example.com","source":"landing-page","submittedAt":"2026-03-16T15:00:00.000Z"}'
+```
+
+Réponse attendue :
+
+```json
+{ "ok": true }
+```
+
+## Déploiement Vercel
+
+Si le repo GitHub est connecté à Vercel, un push sur `main` déclenche normalement un nouveau déploiement automatiquement.
+
+Commande manuelle si besoin :
+
+```bash
+npm run build
+vercel --prod
+```
+
+## Notes
+
+- La clé Brevo reste côté serveur et n’est jamais exposée au bundle frontend.
+- `source` et `submittedAt` sont acceptés par le frontend/backend, mais ne sont pas envoyés à Brevo par défaut pour éviter de dépendre d’attributs custom fragiles.
