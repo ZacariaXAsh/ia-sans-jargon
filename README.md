@@ -9,6 +9,34 @@ Landing page Vite pour tester la demande autour d’un projet grand public qui a
 - Vercel pour l’hébergement du frontend
 - Vercel Function (`api/waitlist.js`) pour envoyer les emails vers Brevo côté serveur
 
+## Localisation FR / EN
+
+Le site reste une seule page statique, avec une localisation légère côté navigateur.
+
+### Principe
+
+- Les textes FR/EN sont stockés dans `src/main.js` dans un dictionnaire minimal
+- Le HTML utilise des attributs `data-i18n`, `data-i18n-placeholder` et `data-i18n-aria-label`
+- Le JavaScript met à jour le contenu visible, les placeholders, les labels ARIA et les métadonnées principales (`title`, `description`, `og:title`, `og:description`, `og:locale`)
+- Le choix de langue est mémorisé dans `localStorage` sous la clé `iaSansJargonLanguage`
+
+### Comportement par défaut
+
+- Si une langue a déjà été choisie, elle est réutilisée
+- Sinon, le site regarde la langue du navigateur
+- Si le navigateur est en anglais → `en`
+- Si le navigateur est en français → `fr`
+- Si rien n’est clairement détecté, le site retombe sur le français par défaut
+
+### Caveat métadonnées
+
+Comme le site est statique et mono-page, les métadonnées SEO / Open Graph sont mises à jour côté client après chargement. En pratique :
+
+- l’utilisateur voit bien le bon titre / texte une fois la page chargée
+- mais les robots ou scrapers sociaux qui ne rejouent pas le JavaScript peuvent encore voir les métadonnées françaises par défaut du HTML initial
+
+C’est le compromis le plus léger sans dupliquer la page ni ajouter de framework i18n.
+
 ## Démarrer en local
 
 ```bash
@@ -118,3 +146,4 @@ vercel --prod
 
 - La clé Brevo reste côté serveur et n’est jamais exposée au bundle frontend.
 - `source` et `submittedAt` sont acceptés par le frontend/backend, mais ne sont pas envoyés à Brevo par défaut pour éviter de dépendre d’attributs custom fragiles.
+- Les messages de statut du formulaire (erreur, succès, chargement) sont aussi localisés côté client.

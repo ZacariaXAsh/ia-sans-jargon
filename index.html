@@ -14,6 +14,7 @@
       content="Ne vous sentez plus largué par l’IA. Des repères simples, des usages concrets, et les premiers contenus gratuits en avant-première."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
     <meta name="theme-color" content="#f5f1ea" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,13 +28,21 @@
     <div class="page-shell">
       <header class="site-header">
         <nav class="nav container">
-          <a class="brand" href="#top" aria-label="Retour en haut de page">
+          <a class="brand" href="#top" data-i18n-aria-label="brandAriaLabel">
             <span class="brand-mark">✦</span>
-            <span>IA, sans jargon</span>
+            <span data-i18n="brandName">IA, sans jargon</span>
           </a>
-          <div class="nav-links">
-            <a href="#faq">FAQ</a>
-            <a class="nav-cta" href="#attente">Recevoir l’accès prioritaire</a>
+
+          <div class="nav-actions">
+            <div class="language-switcher" role="group" aria-label="Language switcher" data-i18n-aria-label="languageSwitcherAriaLabel">
+              <button type="button" class="language-button" data-lang-switch="fr">FR</button>
+              <button type="button" class="language-button" data-lang-switch="en">EN</button>
+            </div>
+
+            <div class="nav-links">
+              <a href="#faq" data-i18n="navFaq">FAQ</a>
+              <a class="nav-cta" href="#attente" data-i18n="navCta">Recevoir l’accès prioritaire</a>
+            </div>
           </div>
         </nav>
       </header>
@@ -43,14 +52,14 @@
           <div class="hero-glow" aria-hidden="true"></div>
           <div class="container hero-grid">
             <div class="hero-copy reveal">
-              <p class="eyebrow">Simple, clair, utile</p>
-              <h1>Ne vous sentez plus largué par l’IA.</h1>
-              <p class="hero-text">
+              <p class="eyebrow" data-i18n="heroEyebrow">Simple, clair, utile</p>
+              <h1 data-i18n="heroTitle">Ne vous sentez plus largué par l’IA.</h1>
+              <p class="hero-text" data-i18n="heroText">
                 Rejoignez la liste pour recevoir les premiers contenus gratuits et un point d’entrée simple pour comprendre à quoi l’IA peut vraiment vous servir.
               </p>
 
               <form class="waitlist-form card waitlist-form-hero" data-waitlist-form>
-                <label class="form-label" for="hero-email">Recevez l’accès prioritaire</label>
+                <label class="form-label" for="hero-email" data-i18n="heroFormLabel">Recevez l’accès prioritaire</label>
                 <div class="form-row">
                   <input
                     id="hero-email"
@@ -59,37 +68,38 @@
                     inputmode="email"
                     autocomplete="email"
                     placeholder="Votre email"
+                    data-i18n-placeholder="emailPlaceholder"
                     required
                   />
-                  <button type="submit">Recevoir les premiers contenus</button>
+                  <button type="submit" data-i18n="heroSubmit">Recevoir les premiers contenus</button>
                 </div>
-                <p class="form-note">Gratuit. Pas de spam. Juste le lancement et les contenus utiles.</p>
+                <p class="form-note" data-i18n="heroFormNote">Gratuit. Pas de spam. Juste le lancement et les contenus utiles.</p>
                 <p class="form-status" data-form-status aria-live="polite"></p>
               </form>
 
               <ul class="hero-points">
-                <li>Sans jargon technique</li>
-                <li>Des exemples du quotidien</li>
-                <li>Pas besoin d’être technique</li>
+                <li data-i18n="heroPointOne">Sans jargon technique</li>
+                <li data-i18n="heroPointTwo">Des exemples du quotidien</li>
+                <li data-i18n="heroPointThree">Pas besoin d’être technique</li>
               </ul>
             </div>
 
             <div class="hero-panel reveal">
               <div class="card hero-card">
-                <p class="card-kicker">Au lancement</p>
-                <h2>Vous recevrez l’essentiel pour démarrer sans vous noyer.</h2>
+                <p class="card-kicker" data-i18n="launchEyebrow">Au lancement</p>
+                <h2 data-i18n="launchTitle">Vous recevrez l’essentiel pour démarrer sans vous noyer.</h2>
                 <div class="mini-stack">
                   <article>
-                    <h3>Comprendre les bases</h3>
-                    <p>Les mots utiles, expliqués simplement.</p>
+                    <h3 data-i18n="launchCardOneTitle">Comprendre les bases</h3>
+                    <p data-i18n="launchCardOneText">Les mots utiles, expliqués simplement.</p>
                   </article>
                   <article>
-                    <h3>Voir des usages concrets</h3>
-                    <p>Des exemples faciles à reprendre.</p>
+                    <h3 data-i18n="launchCardTwoTitle">Voir des usages concrets</h3>
+                    <p data-i18n="launchCardTwoText">Des exemples faciles à reprendre.</p>
                   </article>
                   <article>
-                    <h3>Faire le tri</h3>
-                    <p>Quoi tester, quoi ignorer, sans pression.</p>
+                    <h3 data-i18n="launchCardThreeTitle">Faire le tri</h3>
+                    <p data-i18n="launchCardThreeText">Quoi tester, quoi ignorer, sans pression.</p>
                   </article>
                 </div>
               </div>
@@ -100,22 +110,22 @@
         <section class="section soft-section">
           <div class="container">
             <div class="section-heading reveal section-heading-compact">
-              <p class="eyebrow">Pourquoi laisser votre email ?</p>
-              <h2>Pour recevoir un point de départ clair, pas une couche de bruit en plus.</h2>
+              <p class="eyebrow" data-i18n="benefitsEyebrow">Pourquoi laisser votre email ?</p>
+              <h2 data-i18n="benefitsTitle">Pour recevoir un point de départ clair, pas une couche de bruit en plus.</h2>
             </div>
 
             <div class="grid three-col compact-grid">
               <article class="info-card reveal">
-                <h3>Plus simple</h3>
-                <p>Vous gagnez un repère clair dans un sujet qui paraît souvent flou.</p>
+                <h3 data-i18n="benefitOneTitle">Plus simple</h3>
+                <p data-i18n="benefitOneText">Vous gagnez un repère clair dans un sujet qui paraît souvent flou.</p>
               </article>
               <article class="info-card reveal">
-                <h3>Plus concret</h3>
-                <p>Vous voyez ce qui peut vraiment vous aider au quotidien.</p>
+                <h3 data-i18n="benefitTwoTitle">Plus concret</h3>
+                <p data-i18n="benefitTwoText">Vous voyez ce qui peut vraiment vous aider au quotidien.</p>
               </article>
               <article class="info-card reveal">
-                <h3>Plus rassurant</h3>
-                <p>Vous avancez sans avoir besoin de tout comprendre d’un coup.</p>
+                <h3 data-i18n="benefitThreeTitle">Plus rassurant</h3>
+                <p data-i18n="benefitThreeText">Vous avancez sans avoir besoin de tout comprendre d’un coup.</p>
               </article>
             </div>
           </div>
@@ -124,13 +134,13 @@
         <section id="attente" class="section cta-section">
           <div class="container cta-wrap reveal">
             <div class="cta-copy">
-              <p class="eyebrow">Accès prioritaire</p>
-              <h2>Recevez les premiers contenus gratuits dès l’ouverture.</h2>
-              <p>Inscrivez-vous maintenant pour être prévenu en premier.</p>
+              <p class="eyebrow" data-i18n="ctaEyebrow">Accès prioritaire</p>
+              <h2 data-i18n="ctaTitle">Recevez les premiers contenus gratuits dès l’ouverture.</h2>
+              <p data-i18n="ctaText">Inscrivez-vous maintenant pour être prévenu en premier.</p>
             </div>
 
             <form class="waitlist-form waitlist-form-compact card" data-waitlist-form>
-              <label class="sr-only" for="footer-email">Adresse email</label>
+              <label class="sr-only" for="footer-email" data-i18n="footerFormLabel">Adresse email</label>
               <div class="form-row form-row-stacked-mobile">
                 <input
                   id="footer-email"
@@ -139,11 +149,12 @@
                   inputmode="email"
                   autocomplete="email"
                   placeholder="Votre email"
+                  data-i18n-placeholder="emailPlaceholder"
                   required
                 />
-                <button type="submit">Je veux être prévenu</button>
+                <button type="submit" data-i18n="footerSubmit">Je veux être prévenu</button>
               </div>
-              <p class="form-note">Gratuit. Pas de spam.</p>
+              <p class="form-note" data-i18n="footerFormNote">Gratuit. Pas de spam.</p>
               <p class="form-status" data-form-status aria-live="polite"></p>
             </form>
           </div>
@@ -152,21 +163,21 @@
         <section id="faq" class="section white-section">
           <div class="container faq-wrap">
             <div class="section-heading reveal section-heading-compact">
-              <p class="eyebrow">FAQ</p>
-              <h2>Quelques réponses simples.</h2>
+              <p class="eyebrow" data-i18n="faqEyebrow">FAQ</p>
+              <h2 data-i18n="faqTitle">Quelques réponses simples.</h2>
             </div>
             <div class="faq-list reveal">
               <details>
-                <summary>Je pars de zéro. Est-ce pour moi ?</summary>
-                <p>Oui. Le projet est pensé pour les personnes curieuses qui veulent enfin un point d’entrée simple.</p>
+                <summary data-i18n="faqOneQuestion">Je pars de zéro. Est-ce pour moi ?</summary>
+                <p data-i18n="faqOneAnswer">Oui. Le projet est pensé pour les personnes curieuses qui veulent enfin un point d’entrée simple.</p>
               </details>
               <details>
-                <summary>Est-ce une formation technique ?</summary>
-                <p>Non. L’objectif est de comprendre l’essentiel et de tester des usages concrets sans jargon.</p>
+                <summary data-i18n="faqTwoQuestion">Est-ce une formation technique ?</summary>
+                <p data-i18n="faqTwoAnswer">Non. L’objectif est de comprendre l’essentiel et de tester des usages concrets sans jargon.</p>
               </details>
               <details>
-                <summary>Qu’est-ce que je reçois en m’inscrivant ?</summary>
-                <p>Les nouvelles du lancement, l’accès prioritaire, et les premiers contenus gratuits.</p>
+                <summary data-i18n="faqThreeQuestion">Qu’est-ce que je reçois en m’inscrivant ?</summary>
+                <p data-i18n="faqThreeAnswer">Les nouvelles du lancement, l’accès prioritaire, et les premiers contenus gratuits.</p>
               </details>
             </div>
           </div>
@@ -175,8 +186,8 @@
 
       <footer class="site-footer">
         <div class="container footer-inner">
-          <p>IA, sans jargon — pour comprendre l’IA simplement, sans se sentir largué.</p>
-          <a href="#top">Revenir en haut ↑</a>
+          <p data-i18n="footerText">IA, sans jargon — pour comprendre l’IA simplement, sans se sentir largué.</p>
+          <a href="#top" data-i18n="footerBackToTop">Revenir en haut ↑</a>
         </div>
       </footer>
     </div>

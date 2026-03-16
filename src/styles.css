@@ -101,6 +101,51 @@ button {
   background: linear-gradient(135deg, var(--primary), #7a61ea);
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.24rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.language-button {
+  min-width: 2.7rem;
+  min-height: 2.3rem;
+  padding: 0 0.8rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.language-button:hover,
+.language-button:focus-visible {
+  color: var(--text);
+}
+
+.language-button:focus-visible {
+  outline: 2px solid rgba(27, 78, 214, 0.35);
+  outline-offset: 2px;
+}
+
+.language-button.is-active {
+  color: var(--text);
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(20, 31, 51, 0.08);
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -540,6 +585,15 @@ h1 {
 }
 
 @media (max-width: 720px) {
+  .nav {
+    align-items: flex-start;
+  }
+
+  .nav-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .nav-links a:not(.nav-cta) {
     display: none;
   }
