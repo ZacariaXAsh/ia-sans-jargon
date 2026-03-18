@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import GlossaryCard from '../components/GlossaryCard.astro';
+import WaitlistForm from '../components/WaitlistForm.astro';
+import ValuePillars from '../components/ValuePillars.astro';
+import HomeContent, { frontmatter as home } from '../content/pages/home.md';
+
+if (!home) {
+  throw new Error('Home content entry not found');
+}
+
+const allArticles = await getCollection('articles');
+const allGlossary = await getCollection('glossary');
+
+const featuredArticles = home.featuredArticles
+  .map((slug) => allArticles.find((article) => article.data.slug === slug))
+  .filter(Boolean);
+
+const featuredGlossary = home.featuredGlossary
+  .map((slug) => allGlossary.find((term) => term.data.slug === slug))
+  .filter(Boolean);
+---
+<BaseLayout title={home.title} description={home.description}>
+  <SiteHeader currentPath="/" />
+
+  <main>
+    <section class="hero-section shell">
+      <div class="hero-copy">
+        <p class="section-eyebrow">{home.eyebrow}</p>
+        <h1>{home.heroTitle}</h1>
+        <p class="hero-summary">{home.heroSummary}</p>
+
+        <div class="hero-actions">
+          <a class="button-primary" href={`/articles/${featuredArticles[0]?.data.slug || ''}/`}>Commencer par un guide simple</a>
+          <a class="button-secondary" href="/articles/">Voir les articles</a>
+        </div>
+
+        <p class="hero-reassurance">{home.reassurance}</p>
+      </div>
+
+      <aside class="hero-panel card">
+        <p class="card-kicker">Par où commencer ?</p>
+        <h2>Trois repères pour ne pas se perdre</h2>
+        <ul class="checklist">
+          {home.checklist.map((item) => <li>{item}</li>)}
+        </ul>
+      </aside>
+    </section>
+
+    <ValuePillars />
+
+    <section class="shell section-spacing editorial-intro">
+      <div class="prose prose--home">
+        <HomeContent />
+      </div>
+    </section>
+
+    <section class="shell section-spacing">
+      <div class="section-heading">
+        <div>
+          <p class="section-eyebrow">Articles</p>
+          <h2>Des premiers pas utiles, pas une autre page de promesses</h2>
+        </div>
+        <a class="text-link" href="/articles/">Voir tout</a>
+      </div>
+
+      <div class="card-grid two-columns">
+        {featuredArticles.map((article) => <ArticleCard article={article} />)}
+      </div>
+    </section>
+
+    <section class="shell section-spacing split-callout">
+      <div class="card soft-card">
+        <p class="section-eyebrow">Promesse éditoriale</p>
+        <h2>Vous aider à trouver un appui stable</h2>
+        <p>
+          Ici, l’objectif n’est pas d’impressionner avec des mots compliqués. L’objectif est de montrer ce qui vaut la peine d’être testé, ce qu’il faut vérifier, et ce qu’il vaut mieux laisser de côté.
+        </p>
+      </div>
+
+      <div class="card soft-card">
+        <p class="section-eyebrow">Glossaire</p>
+        <h2>Les mots qu’on entend partout, expliqués calmement</h2>
+        <p>
+          On garde le glossaire léger au départ : quelques termes vraiment utiles, reliés aux articles plutôt qu’un dictionnaire géant impossible à parcourir sur mobile.
+        </p>
+      </div>
+    </section>
+
+    <section class="shell section-spacing">
+      <div class="section-heading">
+        <div>
+          <p class="section-eyebrow">Petit glossaire</p>
+          <h2>Les premiers termes à connaître</h2>
+        </div>
+        <a class="text-link" href="/glossaire/">Ouvrir le glossaire</a>
+      </div>
+
+      <div class="card-grid three-columns">
+        {featuredGlossary.map((term) => <GlossaryCard term={term} />)}
+      </div>
+    </section>
+
+    <section class="shell section-spacing">
+      <WaitlistForm
+        source="editorial-home"
+        title="Recevoir les prochains guides quand ils sortent"
+        description="La waitlist Brevo est conservée, mais elle passe en second plan : le coeur du site devient un vrai parcours éditorial rassurant."
+      />
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

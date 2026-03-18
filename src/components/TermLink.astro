@@ -1,0 +1,56 @@
+---
+const { slug, label, summary } = Astro.props;
+const cardId = `term-${slug}-${Math.random().toString(36).slice(2, 8)}`;
+---
+<span class="term-inline" data-term-root>
+  <button type="button" class="term-inline__trigger" aria-expanded="false" aria-controls={cardId} data-term-trigger>
+    {label}
+  </button>
+  <span class="term-inline__card" id={cardId} hidden data-term-card>
+    <strong>{label}</strong>
+    <span>{summary}</span>
+    <a href={`/glossaire/${slug}/`}>Voir dans le glossaire</a>
+  </span>
+</span>
+
+<script is:inline>
+  if (!window.__iaSansJargonTermsBound) {
+    window.__iaSansJargonTermsBound = true;
+
+    const closeAll = () => {
+      document.querySelectorAll('[data-term-root]').forEach((root) => {
+        const trigger = root.querySelector('[data-term-trigger]');
+        const card = root.querySelector('[data-term-card]');
+        if (trigger instanceof HTMLElement) trigger.setAttribute('aria-expanded', 'false');
+        if (card instanceof HTMLElement) card.hidden = true;
+      });
+    };
+
+    document.addEventListener('click', (event) => {
+      const trigger = event.target instanceof Element ? event.target.closest('[data-term-trigger]') : null;
+      const insideCard = event.target instanceof Element ? event.target.closest('[data-term-card]') : null;
+
+      if (trigger) {
+        const root = trigger.closest('[data-term-root]');
+        const card = root?.querySelector('[data-term-card]');
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+        closeAll();
+        if (!isOpen && card instanceof HTMLElement) {
+          trigger.setAttribute('aria-expanded', 'true');
+          card.hidden = false;
+        }
+        return;
+      }
+
+      if (!insideCard) {
+        closeAll();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeAll();
+      }
+    });
+  }
+</script>

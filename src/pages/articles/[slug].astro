@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import GlossaryCard from '../../components/GlossaryCard.astro';
+import WaitlistForm from '../../components/WaitlistForm.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({ params: { slug: article.data.slug }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const glossary = await getCollection('glossary');
+const relatedTerms = article.data.relatedGlossary
+  .map((slug) => glossary.find((term) => term.data.slug === slug))
+  .filter(Boolean);
+---
+<BaseLayout title={`${article.data.title} — IA, sans jargon`} description={article.data.summary}>
+  <SiteHeader currentPath="/articles/" />
+
+  <main class="shell page-section">
+    <article class="article-layout">
+      <header class="article-header">
+        <p class="card-kicker">{article.data.category} · {article.data.estimatedMinutes} min</p>
+        <h1>{article.data.title}</h1>
+        <p class="article-summary">{article.data.summary}</p>
+      </header>
+
+      <div class="article-body prose">
+        <Content />
+      </div>
+    </article>
+
+    {relatedTerms.length > 0 && (
+      <section class="section-spacing">
+        <div class="section-heading">
+          <div>
+            <p class="section-eyebrow">Glossaire lié</p>
+            <h2>Deux définitions utiles pendant la lecture</h2>
+          </div>
+        </div>
+        <div class="card-grid three-columns">
+          {relatedTerms.map((term) => <GlossaryCard term={term} />)}
+        </div>
+      </section>
+    )}
+
+    <section class="section-spacing">
+      <WaitlistForm
+        source={`article-${article.data.slug}`}
+        title="Recevoir la suite de ce parcours éditorial"
+        description="Si ce format vous aide, vous pouvez laisser votre email pour être prévenu des prochains articles."
+      />
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

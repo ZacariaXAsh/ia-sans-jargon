@@ -1,41 +1,42 @@
 # IA, sans jargon
 
-Landing page Vite pour tester la demande autour d’un projet grand public qui aide à comprendre et utiliser l’IA sans jargon.
+Site éditorial Astro pour expliquer l’IA à des débutants prudents, avec une vraie homepage de contenu, des articles, un petit glossaire, et une waitlist Brevo conservée.
 
-## Stack
+## Stack actuelle
 
-- Vite
-- HTML/CSS/JS statiques
-- Vercel pour l’hébergement du frontend
-- Vercel Function (`api/waitlist.js`) pour envoyer les emails vers Brevo côté serveur
+- Astro
+- Astro Content Collections (`pages`, `articles`, `glossary`)
+- Markdown / MDX pour le contenu
+- CSS tokenisé maison pour le thème éditorial
+- Vercel pour l’hébergement statique
+- Vercel Function `api/waitlist.js` pour la waitlist Brevo
 
-## Localisation FR / EN
+Le repo vise désormais une seule direction visible : **Astro éditorial + contenu + waitlist serveur**.
+L’ancienne landing Vite et le drift Tamagui/React ne font plus partie de la surface active.
 
-Le site reste une seule page statique, avec une localisation légère côté navigateur.
+## Pourquoi pas Tamagui tout de suite ?
 
-### Principe
+Le repo est déjà parti dans une bonne direction content-first avec Astro :
 
-- Les textes FR/EN sont stockés dans `src/main.js` dans un dictionnaire minimal
-- Le HTML utilise des attributs `data-i18n`, `data-i18n-placeholder` et `data-i18n-aria-label`
-- Le JavaScript met à jour le contenu visible, les placeholders, les labels ARIA et les métadonnées principales (`title`, `description`, `og:title`, `og:description`, `og:locale`)
-- Le choix de langue est mémorisé dans `localStorage` sous la clé `iaSansJargonLanguage`
+- pages éditoriales statiques rapides
+- contenu facile à écrire et relire
+- glossaire branché au contenu
+- waitlist déjà isolée côté serveur
 
-### Comportement par défaut
+Ajouter Tamagui maintenant impliquerait d’introduire la couche React/Tamagui dans un repo qui n’en a pas besoin pour livrer la V1 éditoriale. Le compromis retenu dans le code est donc :
 
-- Si une langue a déjà été choisie, elle est réutilisée
-- Sinon, le site regarde la langue du navigateur
-- Si le navigateur est en anglais → `en`
-- Si le navigateur est en français → `fr`
-- Si rien n’est clairement détecté, le site retombe sur le français par défaut
+- garder Astro comme socle V1
+- renforcer le thème avec des tokens et des composants visuels réutilisables
+- préserver une migration possible plus tard si une vraie app React/web ou mobile devient nécessaire
 
-### Caveat métadonnées
+## Structure utile
 
-Comme le site est statique et mono-page, les métadonnées SEO / Open Graph sont mises à jour côté client après chargement. En pratique :
-
-- l’utilisateur voit bien le bon titre / texte une fois la page chargée
-- mais les robots ou scrapers sociaux qui ne rejouent pas le JavaScript peuvent encore voir les métadonnées françaises par défaut du HTML initial
-
-C’est le compromis le plus léger sans dupliquer la page ni ajouter de framework i18n.
+- `src/pages/` — routes Astro
+- `src/components/` — composants UI et navigation
+- `src/content/` — contenu éditorial et glossaire
+- `src/styles/` — thème CSS global + tokens
+- `api/waitlist.js` — endpoint Vercel vers Brevo
+- `content-drafts/` — brouillons hors build (ignorés par git pour ne pas polluer la review)
 
 ## Démarrer en local
 
@@ -44,106 +45,36 @@ npm install
 npm run dev
 ```
 
-## Variables d’environnement
-
-### Frontend (Vite)
-
-Le formulaire lit `VITE_WAITLIST_ENDPOINT` depuis l’environnement Vite.
-
-En production sur Vercel, la valeur la plus simple est :
-
-```bash
-VITE_WAITLIST_ENDPOINT=/api/waitlist
-```
-
-Le frontend envoie un `POST` JSON avec cette structure :
-
-```json
-{
-  "email": "person@example.com",
-  "source": "landing-page",
-  "submittedAt": "2026-03-16T15:00:00.000Z"
-}
-```
-
-### Backend (Vercel Function)
-
-Configurer aussi ces variables d’environnement sur Vercel :
-
-```bash
-BREVO_API_KEY=your_brevo_api_key
-BREVO_LIST_ID=123
-```
-
-## Endpoint waitlist
-
-Le endpoint `api/waitlist.js` :
-
-- accepte uniquement `POST`
-- valide l’email côté serveur
-- ajoute ou met à jour le contact dans Brevo avec `updateEnabled: true`
-- utilise seulement `BREVO_API_KEY` et `BREVO_LIST_ID` côté serveur
-- retourne des réponses JSON propres (`{ ok: true }` en succès)
-
-Le body envoyé à Brevo contient au minimum :
-
-```json
-{
-  "email": "person@example.com",
-  "listIds": [123],
-  "updateEnabled": true
-}
-```
-
-## Build de production
+## Build
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Test local rapide
+## Waitlist
 
-### Frontend seul
-
-Sans `VITE_WAITLIST_ENDPOINT`, le formulaire reste en mode démo et enregistre les emails dans `localStorage` sous la clé `iaSansJargonWaitlistDemo`.
-
-### Test end-to-end du vrai endpoint
-
-Le plus simple est d’utiliser Vercel en local pour servir à la fois le frontend et `api/waitlist.js` avec les mêmes variables d’environnement :
+Le frontend lit :
 
 ```bash
-npm run build
-vercel dev
+PUBLIC_WAITLIST_ENDPOINT=/api/waitlist
 ```
 
-Puis tester l’endpoint :
+ou, si besoin, la variable historique :
 
 ```bash
-curl -X POST http://localhost:3000/api/waitlist \
-  -H 'Content-Type: application/json' \
-  -d '{"email":"test@example.com","source":"landing-page","submittedAt":"2026-03-16T15:00:00.000Z"}'
+VITE_WAITLIST_ENDPOINT=/api/waitlist
 ```
 
-Réponse attendue :
-
-```json
-{ "ok": true }
-```
-
-## Déploiement Vercel
-
-Si le repo GitHub est connecté à Vercel, un push sur `main` déclenche normalement un nouveau déploiement automatiquement.
-
-Commande manuelle si besoin :
+La fonction serveur attend aussi :
 
 ```bash
-npm run build
-vercel --prod
+BREVO_API_KEY=your_brevo_api_key
+BREVO_LIST_ID=123
 ```
 
-## Notes
+Sans endpoint configuré, le formulaire passe en mode démo et stocke localement les emails pour ne pas bloquer le travail front.
 
-- La clé Brevo reste côté serveur et n’est jamais exposée au bundle frontend.
-- `source` et `submittedAt` sont acceptés par le frontend/backend, mais ne sont pas envoyés à Brevo par défaut pour éviter de dépendre d’attributs custom fragiles.
-- Les messages de statut du formulaire (erreur, succès, chargement) sont aussi localisés côté client.
+## Déploiement
+
+Si le repo est connecté à Vercel, un push sur `main` suffit normalement.

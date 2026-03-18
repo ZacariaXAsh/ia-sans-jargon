@@ -4,14 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "render-pages": "node scripts/render-pages.mjs",
-    "predev": "npm run render-pages",
-    "dev": "vite",
-    "prebuild": "npm run render-pages",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
-  "devDependencies": {
-    "vite": "^5.4.0"
+  "dependencies": {
+    "@astrojs/mdx": "^5.0.1",
+    "astro": "^6.0.5"
   }
 }

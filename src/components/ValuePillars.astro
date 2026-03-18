@@ -1,0 +1,45 @@
+---
+const pillars = [
+  {
+    title: 'Rassurant',
+    body: 'On enlève la pression. Le site aide à faire un premier pas utile sans te faire sentir en retard.',
+    icon: '01',
+    tone: 'warm',
+  },
+  {
+    title: 'Concret',
+    body: 'Chaque page doit déboucher sur une action simple : tester, vérifier, reformuler, ou éviter un piège.',
+    icon: '02',
+    tone: 'brand',
+  },
+  {
+    title: 'Prudent',
+    body: 'On garde les garde-fous visibles : données privées, fausse confiance, et cas où il vaut mieux s’arrêter.',
+    icon: '03',
+    tone: 'calm',
+  },
+];
+---
+
+<section class="shell section-spacing">
+  <div class="pillars-band">
+    <div class="pillars__intro">
+      <span class="pillars__eyebrow">Direction visuelle et tonale</span>
+      <h2>Le thème qu’on veut est déjà là : doux, lisible, sérieux sans être froid.</h2>
+      <p>
+        Au lieu d’ajouter une couche d’UI lourde, on fixe maintenant les repères du design système :
+        une palette, des surfaces, et trois promesses éditoriales qui peuvent se répéter partout.
+      </p>
+    </div>
+
+    <div class="pillars__grid">
+      {pillars.map((pillar) => (
+        <article class={`pillar-card pillar-card--${pillar.tone}`}>
+          <div class="pillar-card__icon">{pillar.icon}</div>
+          <h3>{pillar.title}</h3>
+          <p>{pillar.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,11 @@
+---
+const { term } = Astro.props;
+---
+<article class="card glossary-card">
+  <p class="card-kicker">{term.data.category}</p>
+  <h3>
+    <a href={`/glossaire/${term.data.slug}/`}>{term.data.title}</a>
+  </h3>
+  <p>{term.data.shortDefinition}</p>
+  <a class="text-link" href={`/glossaire/${term.data.slug}/`}>Voir la définition</a>
+</article>

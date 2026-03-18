@@ -1,0 +1,24 @@
+---
+import { getEntry } from 'astro:content';
+
+interface Props {
+  slug: string;
+  children?: unknown;
+}
+
+const { slug } = Astro.props;
+const entry = await getEntry('glossary', slug);
+
+if (!entry) {
+  throw new Error(`Glossary entry not found for slug: ${slug}`);
+}
+---
+
+<details class="glossary-term">
+  <summary>{Astro.slots.default ? <slot /> : entry.data.term}</summary>
+  <div class="glossary-term__popover">
+    <strong>{entry.data.term}</strong>
+    <p>{entry.data.shortDefinition}</p>
+    <a href={`/glossaire/${entry.id}/`}>Voir la définition complète</a>
+  </div>
+</details>

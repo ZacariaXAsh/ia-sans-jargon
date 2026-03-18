@@ -1,0 +1,11 @@
+---
+const { article, compact = false } = Astro.props;
+---
+<article class:list={['card article-card', compact && 'is-compact']}>
+  <p class="card-kicker">{article.data.category} · {article.data.estimatedMinutes} min</p>
+  <h3>
+    <a href={`/articles/${article.data.slug}/`}>{article.data.title}</a>
+  </h3>
+  <p>{article.data.summary}</p>
+  <a class="text-link" href={`/articles/${article.data.slug}/`}>Lire l’article</a>
+</article>

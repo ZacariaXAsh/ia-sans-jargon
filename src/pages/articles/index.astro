@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+const articles = (await getCollection('articles')).sort((a, b) => a.data.publishOrder - b.data.publishOrder);
+---
+<BaseLayout title="Articles — IA, sans jargon" description="Les premiers guides éditoriaux pour comprendre l’IA sans jargon et sans pression.">
+  <SiteHeader currentPath="/articles/" />
+
+  <main class="shell page-section">
+    <section class="page-hero narrow-hero">
+      <p class="section-eyebrow">Articles</p>
+      <h1>Des guides courts pour commencer sans se faire peur</h1>
+      <p>
+        On commence par les bases utiles : tester l’IA sans risque, repérer ce qu’elle fait bien, et apprendre à vérifier avant de croire.
+      </p>
+    </section>
+
+    <section class="card-grid two-columns">
+      {articles.map((article) => <ArticleCard article={article} />)}
+    </section>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

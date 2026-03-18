@@ -1,0 +1,119 @@
+---
+const {
+  source = 'site-home',
+  title = 'Recevoir les prochains guides',
+  description = 'La waitlist reste là, mais comme un rappel léger : on publie d’abord du contenu utile.',
+} = Astro.props;
+
+const endpoint = import.meta.env.PUBLIC_WAITLIST_ENDPOINT ?? import.meta.env.VITE_WAITLIST_ENDPOINT ?? '';
+---
+<section class="waitlist-box" id="rester-au-courant">
+  <div>
+    <p class="section-eyebrow">Rester au courant</p>
+    <h2>{title}</h2>
+    <p>{description}</p>
+  </div>
+
+  <form class="waitlist-form" data-waitlist-form data-source={source} data-endpoint={endpoint} novalidate>
+    <label class="sr-only" for={`waitlist-${source}`}>Adresse email</label>
+    <div class="waitlist-form__row">
+      <input
+        id={`waitlist-${source}`}
+        type="email"
+        name="email"
+        autocomplete="email"
+        inputmode="email"
+        placeholder="Votre email"
+        required
+      />
+      <button type="submit">Recevoir les nouveautés</button>
+    </div>
+    <p class="form-note">Pas de tunnel compliqué. Juste une alerte quand un nouveau guide utile sort.</p>
+    <p class="form-status" data-form-status aria-live="polite"></p>
+  </form>
+</section>
+
+<script is:inline>
+  if (!window.__iaSansJargonWaitlistBound) {
+    window.__iaSansJargonWaitlistBound = true;
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const demoStorageKey = 'iaSansJargonWaitlistDemo';
+
+    const setStatus = (form, message = '', tone = 'neutral') => {
+      const status = form.querySelector('[data-form-status]');
+      if (!status) return;
+      status.textContent = message;
+      status.dataset.tone = tone;
+    };
+
+    const lockForm = (form, disabled) => {
+      const input = form.querySelector('input[name="email"]');
+      const button = form.querySelector('button[type="submit"]');
+      if (input) input.disabled = disabled;
+      if (button) {
+        if (!form.dataset.defaultLabel) form.dataset.defaultLabel = button.textContent?.trim() || 'Recevoir les nouveautés';
+        button.disabled = disabled;
+        button.textContent = disabled ? 'Envoi…' : form.dataset.defaultLabel;
+      }
+    };
+
+    const saveDemoLead = (email, source) => {
+      const raw = window.localStorage.getItem(demoStorageKey);
+      const current = raw ? JSON.parse(raw) : [];
+      const next = [
+        ...current.filter((entry) => entry.email !== email),
+        { email, source, submittedAt: new Date().toISOString(), mode: 'demo' },
+      ];
+      window.localStorage.setItem(demoStorageKey, JSON.stringify(next));
+    };
+
+    document.addEventListener('submit', async (event) => {
+      const form = event.target;
+      if (!(form instanceof HTMLFormElement) || !form.matches('[data-waitlist-form]')) return;
+
+      event.preventDefault();
+      const email = String(new FormData(form).get('email') || '').trim().toLowerCase();
+      const source = form.dataset.source || 'site-home';
+      const endpoint = form.dataset.endpoint?.trim();
+
+      if (!emailPattern.test(email)) {
+        setStatus(form, 'Ajoute une adresse email valide pour recevoir les prochains guides.', 'error');
+        return;
+      }
+
+      setStatus(form, '');
+      lockForm(form, true);
+
+      try {
+        if (!endpoint) {
+          saveDemoLead(email, source);
+        } else {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email,
+              source,
+              submittedAt: new Date().toISOString(),
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`waitlist_request_failed:${response.status}`);
+          }
+        }
+
+        form.reset();
+        setStatus(form, endpoint
+          ? 'Merci. On vous prévient quand un nouveau guide est publié.'
+          : 'Mode démo : email enregistré localement. Configurez PUBLIC_WAITLIST_ENDPOINT ou VITE_WAITLIST_ENDPOINT pour le brancher en live.', 'success');
+      } catch (error) {
+        console.error(error);
+        setStatus(form, 'Impossible d’envoyer le formulaire pour le moment. Réessayez un peu plus tard.', 'error');
+      } finally {
+        lockForm(form, false);
+      }
+    });
+  }
+</script>
