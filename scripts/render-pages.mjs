@@ -79,6 +79,7 @@ function renderLocalePage(language) {
             </div>
 
             <div class="nav-links">
+              <a href="#start">${escapeHtml(copy.navStart)}</a>
               <a href="#faq">${escapeHtml(copy.navFaq)}</a>
               <a class="nav-cta" href="#attente">${escapeHtml(copy.navCta)}</a>
             </div>
@@ -95,23 +96,10 @@ function renderLocalePage(language) {
               <h1>${escapeHtml(copy.heroTitle)}</h1>
               <p class="hero-text">${escapeHtml(copy.heroText)}</p>
 
-              <form class="waitlist-form card waitlist-form-hero" data-waitlist-form>
-                <label class="form-label" for="hero-email">${escapeHtml(copy.heroFormLabel)}</label>
-                <div class="form-row">
-                  <input
-                    id="hero-email"
-                    name="email"
-                    type="email"
-                    inputmode="email"
-                    autocomplete="email"
-                    placeholder="${escapeHtml(copy.emailPlaceholder)}"
-                    required
-                  />
-                  <button type="submit">${escapeHtml(copy.heroSubmit)}</button>
-                </div>
-                <p class="form-note">${escapeHtml(copy.heroFormNote)}</p>
-                <p class="form-status" data-form-status aria-live="polite"></p>
-              </form>
+              <div class="hero-actions">
+                <a class="button-link button-link-primary" href="#start">${escapeHtml(copy.heroPrimary)}</a>
+                <a class="button-link button-link-secondary" href="#attente">${escapeHtml(copy.heroSecondary)}</a>
+              </div>
 
               <ul class="hero-points">
                 <li>${escapeHtml(copy.heroPointOne)}</li>
@@ -122,20 +110,21 @@ function renderLocalePage(language) {
 
             <div class="hero-panel reveal">
               <div class="card hero-card">
-                <p class="card-kicker">${escapeHtml(copy.launchEyebrow)}</p>
-                <h2>${escapeHtml(copy.launchTitle)}</h2>
+                <p class="card-kicker">${escapeHtml(copy.heroCardEyebrow)}</p>
+                <h2>${escapeHtml(copy.heroCardTitle)}</h2>
+                <p class="card-intro">${escapeHtml(copy.heroCardIntro)}</p>
                 <div class="mini-stack">
                   <article>
-                    <h3>${escapeHtml(copy.launchCardOneTitle)}</h3>
-                    <p>${escapeHtml(copy.launchCardOneText)}</p>
+                    <h3>${escapeHtml(copy.heroCardOneTitle)}</h3>
+                    <p>${escapeHtml(copy.heroCardOneText)}</p>
                   </article>
                   <article>
-                    <h3>${escapeHtml(copy.launchCardTwoTitle)}</h3>
-                    <p>${escapeHtml(copy.launchCardTwoText)}</p>
+                    <h3>${escapeHtml(copy.heroCardTwoTitle)}</h3>
+                    <p>${escapeHtml(copy.heroCardTwoText)}</p>
                   </article>
                   <article>
-                    <h3>${escapeHtml(copy.launchCardThreeTitle)}</h3>
-                    <p>${escapeHtml(copy.launchCardThreeText)}</p>
+                    <h3>${escapeHtml(copy.heroCardThreeTitle)}</h3>
+                    <p>${escapeHtml(copy.heroCardThreeText)}</p>
                   </article>
                 </div>
               </div>
@@ -143,7 +132,35 @@ function renderLocalePage(language) {
           </div>
         </section>
 
-        <section class="section soft-section">
+        <section id="start" class="section soft-section">
+          <div class="container">
+            <div class="section-heading reveal">
+              <p class="eyebrow">${escapeHtml(copy.pathEyebrow)}</p>
+              <h2>${escapeHtml(copy.pathTitle)}</h2>
+              <p>${escapeHtml(copy.pathText)}</p>
+            </div>
+
+            <div class="grid three-col path-grid">
+              <article class="info-card reveal path-card">
+                <p class="card-meta">${escapeHtml(copy.pathCardOneMeta)}</p>
+                <h3>${escapeHtml(copy.pathCardOneTitle)}</h3>
+                <p>${escapeHtml(copy.pathCardOneText)}</p>
+              </article>
+              <article class="info-card reveal path-card">
+                <p class="card-meta">${escapeHtml(copy.pathCardTwoMeta)}</p>
+                <h3>${escapeHtml(copy.pathCardTwoTitle)}</h3>
+                <p>${escapeHtml(copy.pathCardTwoText)}</p>
+              </article>
+              <article class="info-card reveal path-card">
+                <p class="card-meta">${escapeHtml(copy.pathCardThreeMeta)}</p>
+                <h3>${escapeHtml(copy.pathCardThreeTitle)}</h3>
+                <p>${escapeHtml(copy.pathCardThreeText)}</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section white-section">
           <div class="container">
             <div class="section-heading reveal section-heading-compact">
               <p class="eyebrow">${escapeHtml(copy.benefitsEyebrow)}</p>
