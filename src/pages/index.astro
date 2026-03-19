@@ -7,6 +7,7 @@ import ArticleCard from '../components/ArticleCard.astro';
 import GlossaryCard from '../components/GlossaryCard.astro';
 import WaitlistForm from '../components/WaitlistForm.astro';
 import ValuePillars from '../components/ValuePillars.astro';
+import HomeHero from '../components/HomeHero.astro';
 import HomeContent, { frontmatter as home } from '../content/pages/home.md';
 
 if (!home) {
@@ -66,43 +67,15 @@ const quickTopics = [
   <SiteHeader currentPath="/" />
 
   <main>
-    <section class="hero-section shell">
-      <div class="hero-copy">
-        <p class="section-eyebrow">{home.eyebrow}</p>
-        <h1>{home.heroTitle}</h1>
-        <p class="hero-summary">{home.heroSummary}</p>
-
-        <div class="hero-actions">
-          <a class="button-primary" href={`/articles/${featuredArticles[0]?.data.slug || ''}/`}>Faire un test simple en 2 minutes</a>
-          <a class="button-secondary" href="/articles/">Voir les guides</a>
-        </div>
-
-        <div class="hero-strip" aria-label="Trois repères simples">
-          <span>Sans jargon inutile</span>
-          <span>À essayer sans risque</span>
-          <span>À relire avant de croire</span>
-        </div>
-
-        <p class="hero-reassurance">{home.reassurance}</p>
-      </div>
-
-      <aside class="hero-demo card">
-        <p class="card-kicker">Exemple concret</p>
-        <h2>Un premier usage qui aide vraiment</h2>
-        <div class="demo-phone">
-          <div class="demo-bubble demo-bubble--user">
-            Réécris ce message pour qu’il soit plus clair et plus poli. Garde-le court.
-          </div>
-          <div class="demo-bubble demo-bubble--assistant">
-            Bonjour, je vous écris pour savoir si le dossier a bien été reçu. Merci d’avance pour votre retour.
-          </div>
-        </div>
-
-        <ul class="hero-checks">
-          {quickChecks.map((item) => <li>{item}</li>)}
-        </ul>
-      </aside>
-    </section>
+    <HomeHero
+      eyebrow={home.eyebrow}
+      title={home.heroTitle}
+      summary={home.heroSummary}
+      reassurance={home.reassurance}
+      primaryHref={`/articles/${featuredArticles[0]?.data.slug || ''}/`}
+      secondaryHref="/articles/"
+      quickChecks={quickChecks}
+    />
 
     <ValuePillars />
 

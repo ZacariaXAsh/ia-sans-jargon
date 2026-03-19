@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import tamaguiConfig from '../design-system/tamagui.config';
+import { getDesignSystemCss } from '../design-system/foundation';
 
 const {
   title = 'IA, sans jargon',
@@ -13,14 +15,16 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f7f1e7" />
+    <meta name="theme-color" content="#fff3d8" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <style is:inline set:html={getDesignSystemCss()} />
+    <style is:inline set:html={tamaguiConfig.getCSS()} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
   </head>

@@ -1,0 +1,14 @@
+---
+import HomeHero from './tamagui/HomeHero';
+
+const { eyebrow, title, summary, reassurance, primaryHref, secondaryHref, quickChecks = [] } = Astro.props;
+---
+<HomeHero
+  eyebrow={eyebrow}
+  title={title}
+  summary={summary}
+  reassurance={reassurance}
+  primaryHref={primaryHref}
+  secondaryHref={secondaryHref}
+  quickChecks={quickChecks}
+/>
