@@ -22,10 +22,16 @@ const relatedArticles = term.data.relatedArticles
 
   <main class="shell page-section">
     <article class="article-layout glossary-layout">
-      <header class="article-header">
+      <header class="article-header page-hero--editorial">
         <p class="card-kicker">Glossaire · {term.data.category}</p>
         <h1>{term.data.title}</h1>
         <p class="article-summary">{term.data.summary}</p>
+
+        <div class="hero-strip hero-strip--page">
+          <span>Définition rapide</span>
+          <span>Exemple concret</span>
+          <span>Articles liés</span>
+        </div>
       </header>
 
       <div class="article-body prose">
@@ -39,7 +45,7 @@ const relatedArticles = term.data.relatedArticles
         <div class="section-heading">
           <div>
             <p class="section-eyebrow">À lire ensuite</p>
-            <h2>Articles liés à ce terme</h2>
+            <h2>Des articles où ce mot devient vraiment utile</h2>
           </div>
         </div>
         <div class="card-grid two-columns">

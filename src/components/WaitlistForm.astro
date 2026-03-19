@@ -2,7 +2,7 @@
 const {
   source = 'site-home',
   title = 'Recevoir les prochains guides',
-  description = 'La waitlist reste là, mais comme un rappel léger : on publie d’abord du contenu utile.',
+  description = 'Un email de temps en temps quand un nouveau guide utile est publié. Rien de plus.',
 } = Astro.props;
 
 const endpoint = import.meta.env.PUBLIC_WAITLIST_ENDPOINT ?? import.meta.env.VITE_WAITLIST_ENDPOINT ?? '';
@@ -28,7 +28,7 @@ const endpoint = import.meta.env.PUBLIC_WAITLIST_ENDPOINT ?? import.meta.env.VIT
       />
       <button type="submit">Recevoir les nouveautés</button>
     </div>
-    <p class="form-note">Pas de tunnel compliqué. Juste une alerte quand un nouveau guide utile sort.</p>
+    <p class="form-note">Pas de tunnel compliqué. Juste un rappel quand un nouveau guide utile sort.</p>
     <p class="form-status" data-form-status aria-live="polite"></p>
   </form>
 </section>
@@ -78,7 +78,7 @@ const endpoint = import.meta.env.PUBLIC_WAITLIST_ENDPOINT ?? import.meta.env.VIT
       const endpoint = form.dataset.endpoint?.trim();
 
       if (!emailPattern.test(email)) {
-        setStatus(form, 'Ajoute une adresse email valide pour recevoir les prochains guides.', 'error');
+        setStatus(form, 'Ajoutez une adresse email valide pour recevoir les prochains guides.', 'error');
         return;
       }
 
@@ -105,9 +105,7 @@ const endpoint = import.meta.env.PUBLIC_WAITLIST_ENDPOINT ?? import.meta.env.VIT
         }
 
         form.reset();
-        setStatus(form, endpoint
-          ? 'Merci. On vous prévient quand un nouveau guide est publié.'
-          : 'Mode démo : email enregistré localement. Configurez PUBLIC_WAITLIST_ENDPOINT ou VITE_WAITLIST_ENDPOINT pour le brancher en live.', 'success');
+        setStatus(form, 'Merci. On vous prévient quand un nouveau guide utile est publié.', 'success');
       } catch (error) {
         console.error(error);
         setStatus(form, 'Impossible d’envoyer le formulaire pour le moment. Réessayez un peu plus tard.', 'error');

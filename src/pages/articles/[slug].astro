@@ -23,10 +23,16 @@ const relatedTerms = article.data.relatedGlossary
 
   <main class="shell page-section">
     <article class="article-layout">
-      <header class="article-header">
+      <header class="article-header page-hero--editorial">
         <p class="card-kicker">{article.data.category} · {article.data.estimatedMinutes} min</p>
         <h1>{article.data.title}</h1>
         <p class="article-summary">{article.data.summary}</p>
+
+        <div class="hero-strip hero-strip--page">
+          <span>Lecture courte</span>
+          <span>Exemples concrets</span>
+          <span>Repères à vérifier</span>
+        </div>
       </header>
 
       <div class="article-body prose">
@@ -39,7 +45,7 @@ const relatedTerms = article.data.relatedGlossary
         <div class="section-heading">
           <div>
             <p class="section-eyebrow">Glossaire lié</p>
-            <h2>Deux définitions utiles pendant la lecture</h2>
+            <h2>Les mots utiles à garder sous la main</h2>
           </div>
         </div>
         <div class="card-grid three-columns">
@@ -48,11 +54,11 @@ const relatedTerms = article.data.relatedGlossary
       </section>
     )}
 
-    <section class="section-spacing">
+    <section class="section-spacing waitlist-section waitlist-section--secondary">
       <WaitlistForm
         source={`article-${article.data.slug}`}
-        title="Recevoir la suite de ce parcours éditorial"
-        description="Si ce format vous aide, vous pouvez laisser votre email pour être prévenu des prochains articles."
+        title="Recevoir les prochains guides utiles"
+        description="Si ce format vous aide, vous pouvez laisser votre email pour recevoir les prochains contenus quand ils sortent."
       />
     </section>
   </main>

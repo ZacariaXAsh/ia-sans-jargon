@@ -6,6 +6,9 @@ shortDefinition: La demande que vous écrivez ou dictez à l’outil pour lui di
 category: pratique
 relatedArticles:
   - premier-test-ia-sans-risque-sur-telephone
+  - comment-demander-de-laide-a-lia-sans-parler-technique
+  - utiliser-l-ia-meme-si-on-ecrit-ou-on-dicte-en-vrac
+  - ecrire-un-message-avec-l-ia-sans-sonner-faux
 ---
 Un **prompt**, c’est la phrase ou le petit bloc de texte que vous envoyez à l’outil.
 

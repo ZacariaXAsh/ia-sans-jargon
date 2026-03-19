@@ -1,28 +1,29 @@
 ---
-title: "IA, sans jargon — premiers repères pour comprendre l’IA sans se sentir largué"
-description: "Un point d’entrée éditorial rassurant pour comprendre à quoi sert l’IA, où elle aide vraiment, et comment commencer sans stress."
-eyebrow: "Site éditorial pour débutants curieux"
-heroTitle: "Comprendre l’IA sans se sentir largué ni faire semblant"
-heroSummary: "Des guides courts, pensés pour les personnes qui sont curieuses mais prudentes : mobile-first, concrets, sans jargon technique inutile."
-reassurance: "Vous n’avez pas besoin d’être bon en tech pour commencer. Vous avez juste besoin d’un premier pas sûr."
+title: "IA, sans jargon — premiers repères pour comprendre l’IA sans stress"
+description: "Des explications claires, des exemples concrets et des premiers pas utiles pour comprendre l’IA sans jargon inutile."
+eyebrow: "Pour les curieux qui veulent comprendre sans se sentir largués"
+heroTitle: "Essayer l’IA sans stress, sans jargon, sans faire semblant"
+heroSummary: "Des guides courts, des exemples concrets et des repères simples pour comprendre ce qui aide vraiment, ce qu’il faut vérifier, et par où commencer sans risque."
+reassurance: "Pas besoin d’être technique. Il faut juste un premier pas simple, utile et vérifiable."
 featuredArticles:
   - premier-test-ia-sans-risque-sur-telephone
-  - a-quoi-sert-vraiment-l-ia-quand-on-debute
+  - comment-demander-de-laide-a-lia-sans-parler-technique
+  - avant-de-croire-une-reponse-de-lia-verifiez-ces-5-points
 featuredGlossary:
   - ia
   - prompt
   - hallucination
 checklist:
-  - Commencer par un usage où un mauvais résultat serait seulement agaçant, pas grave.
+  - Commencer par une tâche simple, où un mauvais résultat serait juste agaçant.
   - Garder les infos privées hors du chat avant de tester quoi que ce soit.
-  - Lire la réponse comme un brouillon à vérifier, pas comme une vérité automatique.
+  - Relire la réponse comme un brouillon à vérifier, pas comme une vérité automatique.
 ---
 ## Pourquoi ce site existe
 
 Beaucoup de gens sont curieux au sujet de l’IA, mais n’osent pas vraiment l’essayer.
 
-Pas parce qu’ils sont paresseux.
-Parce qu’ils ont peur de mal faire, de paraître perdus, ou de faire confiance à une réponse trop lisse.
+Pas parce qu’ils manquent d’intelligence.
+Parce qu’ils ont peur de mal faire, de paraître perdus, ou de faire confiance à quelque chose qu’ils ne comprennent pas encore.
 
 **IA, sans jargon** part d’un autre point de départ : un téléphone en main, peu de temps, et l’envie de comprendre sans passer par un tunnel de mots compliqués.
 
@@ -30,7 +31,7 @@ Ici, on avance avec trois idées simples :
 
 - commencer petit
 - vérifier avant de croire
-- garder sa dignité de débutant
+- garder le dernier mot
 
-Le site n’est plus juste une landing page avec un formulaire.
-Il devient un premier parcours éditorial : des articles lisibles, un glossaire lié aux vrais besoins, et une waitlist discrète pour suivre la suite.
+L’objectif n’est pas de vous impressionner.
+L’objectif est de vous donner des repères assez clairs pour tester quelque chose d’utile dès aujourd’hui, sans vous sentir bête ni pressé.

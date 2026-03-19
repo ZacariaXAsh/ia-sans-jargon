@@ -6,21 +6,75 @@ import SiteFooter from '../../components/SiteFooter.astro';
 import GlossaryCard from '../../components/GlossaryCard.astro';
 
 const glossary = (await getCollection('glossary')).sort((a, b) => a.data.title.localeCompare(b.data.title, 'fr'));
+
+const starters = ['ia', 'prompt', 'hallucination']
+  .map((slug) => glossary.find((term) => term.data.slug === slug))
+  .filter(Boolean);
 ---
-<BaseLayout title="Glossaire — IA, sans jargon" description="Un petit glossaire simple pour les mots d’IA qu’on entend partout.">
+<BaseLayout title="Glossaire — IA, sans jargon" description="Les mots d’IA qu’on entend partout, expliqués simplement et reliés à de vrais usages.">
   <SiteHeader currentPath="/glossaire/" />
 
   <main class="shell page-section">
-    <section class="page-hero narrow-hero">
+    <section class="page-hero narrow-hero page-hero--editorial">
       <p class="section-eyebrow">Glossaire</p>
       <h1>Les mots qu’on entend partout, expliqués sans brouillard</h1>
       <p>
-        Pas d’autolink agressif, pas de dictionnaire géant. Juste les premiers termes qui aident vraiment à lire les articles sans décrocher.
+        Pas besoin de retenir tout le vocabulaire d’un coup. Commencez par les quelques termes qui reviennent le plus,
+        puis gardez-les sous la main pendant la lecture.
       </p>
+
+      <div class="hero-strip hero-strip--page">
+        <span>Définitions courtes</span>
+        <span>Exemples utiles</span>
+        <span>Articles liés</span>
+      </div>
     </section>
 
-    <section class="card-grid three-columns">
-      {glossary.map((term) => <GlossaryCard term={term} />)}
+    <section class="section-spacing living-grid">
+      <div class="card snack-panel">
+        <p class="section-eyebrow">Par quoi commencer ?</p>
+        <h2>Les trois mots qui débloquent le plus vite</h2>
+        <div class="snack-list">
+          {starters.map((term) => (
+            <a class="snack-link" href={`/glossaire/${term.data.slug}/`}>
+              <strong>{term.data.title}</strong>
+              <span>{term.data.shortDefinition}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="card snack-panel snack-panel--calm">
+        <p class="section-eyebrow">Bon réflexe</p>
+        <h2>Comment utiliser ce glossaire</h2>
+        <div class="path-list">
+          <div class="path-item">
+            <strong>Lire une définition courte</strong>
+            <p>Assez pour comprendre le mot sans casser votre lecture.</p>
+          </div>
+          <div class="path-item">
+            <strong>Regarder un exemple</strong>
+            <p>Pour relier le mot à une situation concrète, pas à une théorie vague.</p>
+          </div>
+          <div class="path-item">
+            <strong>Continuer avec un article</strong>
+            <p>Chaque terme renvoie vers des contenus où il devient vraiment utile.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-spacing">
+      <div class="section-heading">
+        <div>
+          <p class="section-eyebrow">Tous les termes</p>
+          <h2>Le glossaire de base</h2>
+        </div>
+      </div>
+
+      <section class="card-grid three-columns">
+        {glossary.map((term) => <GlossaryCard term={term} />)}
+      </section>
     </section>
   </main>
 

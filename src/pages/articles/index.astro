@@ -6,21 +6,88 @@ import SiteFooter from '../../components/SiteFooter.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 
 const articles = (await getCollection('articles')).sort((a, b) => a.data.publishOrder - b.data.publishOrder);
+
+const findArticle = (slug) => articles.find((article) => article.data.slug === slug);
+
+const startHere = [
+  findArticle('premier-test-ia-sans-risque-sur-telephone'),
+  findArticle('comment-demander-de-laide-a-lia-sans-parler-technique'),
+  findArticle('avant-de-croire-une-reponse-de-lia-verifiez-ces-5-points'),
+].filter(Boolean);
+
+const paths = [
+  {
+    title: 'Commencer sans stress',
+    body: 'Des articles pour faire un premier pas simple, utile et sans enjeu lourd.',
+  },
+  {
+    title: 'Vérifier avant de croire',
+    body: 'Des repères pour éviter la fausse confiance et garder le contrôle du résultat final.',
+  },
+  {
+    title: 'Comprendre les mots utiles',
+    body: 'Des explications claires pour ne plus décrocher quand on entend IA, chatbot, LLM ou hallucination.',
+  },
+];
 ---
-<BaseLayout title="Articles — IA, sans jargon" description="Les premiers guides éditoriaux pour comprendre l’IA sans jargon et sans pression.">
+<BaseLayout title="Articles — IA, sans jargon" description="Des guides courts pour comprendre l’IA sans jargon, sans pression, et avec de vrais exemples utiles.">
   <SiteHeader currentPath="/articles/" />
 
   <main class="shell page-section">
-    <section class="page-hero narrow-hero">
+    <section class="page-hero narrow-hero page-hero--editorial">
       <p class="section-eyebrow">Articles</p>
-      <h1>Des guides courts pour commencer sans se faire peur</h1>
+      <h1>Des guides courts pour commencer, comprendre et vérifier</h1>
       <p>
-        On commence par les bases utiles : tester l’IA sans risque, repérer ce qu’elle fait bien, et apprendre à vérifier avant de croire.
+        Ici, on ne cherche pas à impressionner. On cherche à rendre les choses plus claires :
+        quoi tester, quoi relire, quoi éviter, et par où commencer quand on part presque de zéro.
       </p>
+
+      <div class="hero-strip hero-strip--page">
+        <span>Lecture mobile-friendly</span>
+        <span>Exemples concrets</span>
+        <span>Zéro jargon gratuit</span>
+      </div>
     </section>
 
-    <section class="card-grid two-columns">
-      {articles.map((article) => <ArticleCard article={article} />)}
+    <section class="section-spacing living-grid">
+      <div class="card snack-panel">
+        <p class="section-eyebrow">Commencer ici</p>
+        <h2>Les trois lectures qui débloquent le plus vite</h2>
+        <div class="snack-list">
+          {startHere.map((article) => (
+            <a class="snack-link" href={`/articles/${article.data.slug}/`}>
+              <strong>{article.data.title}</strong>
+              <span>{article.data.summary}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="card snack-panel snack-panel--calm">
+        <p class="section-eyebrow">Le parcours</p>
+        <h2>Trois façons simples de lire le site</h2>
+        <div class="path-list">
+          {paths.map((path) => (
+            <div class="path-item">
+              <strong>{path.title}</strong>
+              <p>{path.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section-spacing">
+      <div class="section-heading">
+        <div>
+          <p class="section-eyebrow">Bibliothèque de départ</p>
+          <h2>Tous les guides disponibles</h2>
+        </div>
+      </div>
+
+      <section class="card-grid two-columns">
+        {articles.map((article) => <ArticleCard article={article} />)}
+      </section>
     </section>
   </main>
 

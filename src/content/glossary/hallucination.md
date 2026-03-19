@@ -6,6 +6,10 @@ shortDefinition: Une réponse qui a l’air crédible mais qui invente ou défor
 category: vigilance
 relatedArticles:
   - a-quoi-sert-vraiment-l-ia-quand-on-debute
+  - avant-de-croire-une-reponse-de-lia-verifiez-ces-5-points
+  - utiliser-l-ia-pour-comprendre-un-texte-confus-sans-lui-laisser-decider
+  - les-erreurs-de-debutant-les-plus-courantes-avec-l-ia
+  - ce-que-veut-dire-hallucination-dans-la-vraie-vie
 ---
 Le mot **hallucination** fait impression, mais l’idée derrière est simple.
 

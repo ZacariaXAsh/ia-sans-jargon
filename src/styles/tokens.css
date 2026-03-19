@@ -1,28 +1,31 @@
 :root {
   color-scheme: light;
 
-  --color-background: #f5f1ea;
-  --color-background-soft: #fbf8f3;
-  --color-surface: rgba(255, 253, 248, 0.88);
-  --color-surface-strong: #ffffff;
-  --color-surface-tint: rgba(241, 245, 255, 0.92);
-  --color-border: rgba(33, 42, 58, 0.11);
-  --color-border-strong: rgba(33, 42, 58, 0.18);
-  --color-text: #182033;
-  --color-text-muted: #5d6778;
-  --color-brand: #3150d2;
-  --color-brand-hover: #223fb5;
-  --color-brand-soft: rgba(49, 80, 210, 0.1);
-  --color-highlight: #775be7;
+  --color-background: #f7f1e7;
+  --color-background-soft: #fdf9f3;
+  --color-surface: rgba(255, 252, 247, 0.9);
+  --color-surface-strong: #fffdf9;
+  --color-surface-tint: rgba(238, 243, 255, 0.94);
+  --color-border: rgba(25, 34, 52, 0.12);
+  --color-border-strong: rgba(25, 34, 52, 0.22);
+  --color-text: #172033;
+  --color-text-muted: #576173;
+  --color-brand: #2455d6;
+  --color-brand-hover: #173eaa;
+  --color-brand-soft: rgba(36, 85, 214, 0.1);
+  --color-highlight: #ff6b4a;
+  --color-highlight-soft: rgba(255, 107, 74, 0.12);
   --color-success: #176447;
   --color-warning: #9a5c00;
+  --color-warning-soft: rgba(243, 172, 61, 0.16);
+  --color-safe-soft: rgba(31, 140, 87, 0.12);
 
-  --shadow-soft: 0 16px 44px rgba(20, 31, 51, 0.08);
-  --shadow-glow: 0 24px 60px rgba(49, 80, 210, 0.14);
+  --shadow-soft: 0 18px 48px rgba(20, 31, 51, 0.08);
+  --shadow-glow: 0 20px 56px rgba(36, 85, 214, 0.16);
 
-  --radius-sm: 14px;
-  --radius-md: 20px;
-  --radius-lg: 28px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
   --radius-pill: 999px;
 
   --space-1: 0.25rem;

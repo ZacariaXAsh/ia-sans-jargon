@@ -7,6 +7,10 @@ category: bases
 relatedArticles:
   - premier-test-ia-sans-risque-sur-telephone
   - a-quoi-sert-vraiment-l-ia-quand-on-debute
+  - quand-l-ia-aide-vraiment-et-quand-elle-ajoute-du-travail
+  - comment-savoir-si-un-usage-de-l-ia-est-sur-ou-risque
+  - les-premiers-usages-utiles-de-l-ia-au-travail
+  - ia-chatbot-llm-quelle-difference-en-pratique
 ---
 Le mot **IA** veut dire *intelligence artificielle*.
 

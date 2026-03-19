@@ -1,14 +1,37 @@
 ---
+import { getEntry } from 'astro:content';
+
+interface Props {
+  slug: string;
+  label?: string;
+  summary?: string;
+}
+
 const { slug, label, summary } = Astro.props;
+const entry = await getEntry('glossary', slug);
+
+if (!entry) {
+  throw new Error(`Glossary entry not found for slug: ${slug}`);
+}
+
 const cardId = `term-${slug}-${Math.random().toString(36).slice(2, 8)}`;
+const displayLabel = label ?? entry.data.title;
+const displaySummary = summary ?? entry.data.shortDefinition ?? entry.data.summary;
 ---
 <span class="term-inline" data-term-root>
-  <button type="button" class="term-inline__trigger" aria-expanded="false" aria-controls={cardId} data-term-trigger>
-    {label}
+  <button
+    type="button"
+    class="term-inline__trigger"
+    aria-expanded="false"
+    aria-controls={cardId}
+    aria-haspopup="dialog"
+    data-term-trigger
+  >
+    {displayLabel}
   </button>
-  <span class="term-inline__card" id={cardId} hidden data-term-card>
-    <strong>{label}</strong>
-    <span>{summary}</span>
+  <span class="term-inline__card" id={cardId} hidden data-term-card role="dialog" aria-label={`Définition rapide : ${displayLabel}`}>
+    <strong>{displayLabel}</strong>
+    <span>{displaySummary}</span>
     <a href={`/glossaire/${slug}/`}>Voir dans le glossaire</a>
   </span>
 </span>
